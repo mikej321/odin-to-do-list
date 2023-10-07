@@ -30,8 +30,10 @@ the following:
 
 import './style.css';
 import { icons, addBeat, removeBeat } from './modules/beat';
+import { menuEvent } from './modules/menu';
 
 // logic for pulsing the icons in the navbar
 addBeat();
 removeBeat();
+menuEvent();
 

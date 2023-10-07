@@ -21,45 +21,363 @@ body {
 }
 
 .content {
-
+    display: flex;
+    justify-content: center;
 }
 
 main {
-
-}
-
-.sidebar {
-
-}
-
-.project1 {
-
-}
-
-.project2 {
-
+    display: grid;
+    width: 100%;
+    max-width: 375px;
+    grid-template-rows: 4rem 1fr;
+    grid-template-areas: "nav"
+                         "sidebar"
+                         "content";
+    border: 1px solid black;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .navbar {
+    grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 1rem;
+    align-items: center;
+    background: gray;
+}
 
+.navbar h2 {
+    font-size: 1.8rem;
 }
 
 .icons {
-
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 21rem;
+    justify-content: space-around;
 }
 
-.topSection {
-
+i {
+    cursor: pointer;
 }
 
-.middleSection {
-
+a {
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: black;
 }
 
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    padding-block: 5rem;
+    background: lightblue;  
+}
+
+.hamburgerMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 5rem;
+    height: 5rem;
+    gap: .5rem;
+    cursor: pointer;
+    transition: scale 0.2s ease-in-out;
+}
+
+.hamburgerMenu:hover {
+    scale: 1.1;
+}
+
+.hamburgerMenu > div {
+    width: 100%;
+    max-width: 50px;
+    height: .5rem;
+    border-radius: 8px;
+    background-color: black;
+}
+
+.line1 {
+    transform-origin: left center;
+    transform: translateY(0);
+    transition: transform .5s ease-in-out;
+}
+
+.line2 {
+    transform-origin: left center;
+    transform: scale(1);
+    transition: transform .5s ease-in-out;
+}
+
+.line3 {
+    transform-origin: left center;
+    transform: translateY(0);
+    transition: transform .5s ease-in-out;
+}
+
+.upperAnimate {
+    width: 2rem;
+    transform: rotate(45deg) translateY(-10px);
+}
+
+.middleAnimate {
+    transform: scale(0);
+}
+
+.lowerAnimate {
+    transform: rotate(-45deg) translateY(10px);
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    height: 100%;
+    max-height: 0rem;
+    overflow: hidden;
+    transition: all 1s ease-in-out;
+}
+
+.projectOpen {
+    max-height: 10rem;
+    visibility: visible;
+    
+}
+
+.project h3 {
+    font-size: 1.5rem;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-left: 2rem;
+    list-style-type: circle;
+}
+
+ul li {
+    font-size: 1.3rem;
+}
+
+
+.toDoContent {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    padding: 4rem 2rem;
+    background: skyblue;
+}
+
+
+.topSection,
+.middleSection,
 .finalSection {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
 
+
+.topSection h1 {
+    font-size: 1.7rem;
+}
+
+.middleSection p {
+    line-height: 3rem;
+}
+
+.middleSection p,
+.finalSection p {
+    font-size: 1.4rem;
 }
 
 .edit {
-    
+    width: 100%;
+    max-width: 5rem;
+    height: 3rem;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    transition: scale 0.2s ease-in-out;
+    cursor: pointer;
 }
+
+.edit:hover {
+    scale: 1.1;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (min-width: 600px) {
+
+    main {
+        display: grid;
+        width: 100%;
+        max-width: 1440px;
+        grid-template-columns: 14rem 1fr;
+        grid-template-rows: 7rem 1fr;
+        grid-template-areas: "sidebar nav"
+                             "sidebar content";
+        transition: grid-template-columns 0.5s ease-in-out;
+    }
+    
+    .hamburgerMenu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 5rem;
+        height: 5rem;
+        gap: .5rem;
+        cursor: pointer;
+    }
+    
+    .hamburgerMenu > div {
+        width: 100%;
+        max-width: 50px;
+        height: .8rem;
+        border-radius: 8px;
+        background-color: black;
+    }
+    
+    .line1 {
+        transform-origin: left center;
+        transform: translateY(0);
+        transition: transform .5s ease-in-out;
+    }
+    
+    .line2 {
+        transform-origin: left center;
+        transform: scale(1);
+        transition: transform .5s ease-in-out;
+    }
+    
+    .line3 {
+        transform-origin: left center;
+        transform: translateY(0);
+        transition: transform .5s ease-in-out;
+    }
+    
+    .upperAnimate {
+        width: 2rem;
+        transform: rotate(45deg) translateY(-7.8px);
+    }
+    
+    .middleAnimate {
+        transform: scale(0);
+    }
+    
+    .lowerAnimate {
+        transform: rotate(-45deg) translateY(5px);
+    }
+    
+    .sidebar {
+        grid-area: sidebar;
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+        padding-top: 5rem;
+        align-items: center;
+        background: lightblue;
+        height: 100vh;
+    }
+    
+    .navOpen {
+        grid-template-columns: 25rem 1fr;
+    }
+    
+    .project {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        transform: translateX(-50px);
+        transition: transform 0.5s ease-in-out;
+    }
+    
+    .project1 {
+    
+    }
+    
+    .project2 {
+    
+    }
+    
+    .projectOpen {
+        transform: translateX(0);
+    }
+    
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-left: 2.3rem;
+        list-style-type: circle;
+    }
+    
+    .navbar {
+        grid-area: nav;
+        display: flex;
+        justify-content: space-between;
+        padding-inline: 1rem;
+        align-items: center;
+        background: gray;
+    }
+    
+    .icons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 40rem;
+        justify-content: space-around;
+    }
+    
+    .toDoContent {
+        grid-area: content;
+        background: skyblue;
+        display: flex;
+        flex-direction: column;
+        padding: 10rem 5rem;
+        gap: 5rem;
+    }
+    
+    .topSection {
+    
+    }
+    
+    .middleSection {
+        
+    }
+    
+    .finalSection {
+    
+    }
+    
+    .topSection,
+    .middleSection,
+    .finalSection {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+    
+    .middleSection,
+    .finalSection {
+        margin-left: 5rem;
+    }
+    
+    .edit {
+        width: 100%;
+        max-width: 7rem;
+        height: 3rem;
+    }
+
+}
+
+/*  */

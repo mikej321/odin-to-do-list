@@ -1,41 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <script src="https://kit.fontawesome.com/a8066ebb61.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/a8066ebb61.js"
+      crossorigin="anonymous"
+    ></script>
     <title>To-Do List</title>
-<script defer src="main.js"></script></head>
-<body>
+  <script defer src="main.js"></script></head>
+  <body>
     <div class="content">
-        <aside>
-            <div class="project1">
-                <h2>Project 1</h2>
-                <ul>
-                    <li>Dishes</li>
-                    <li>Feed</li>
-                </ul>
-            </div>
-            <div class="project2">
-                <h2>Project 2</h2>
-                <ul>
-                    <li>Exercise</li>
-                    <li>Work</li>
-                </ul>
-            </div>
+      <main>
+        <aside class="sidebar">
+          <div class="hamburgerMenu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+          </div>
+          <div class="project project1">
+            <h3>Project 1</h3>
+            <ul>
+              <li>Dishes</li>
+              <li>Feed</li>
+            </ul>
+          </div>
+          <div class="project project2">
+            <h3>Project 2</h3>
+            <ul>
+              <li>Exercise</li>
+              <li>Work</li>
+            </ul>
+          </div>
         </aside>
-        <main>
-            <nav class="navbar">
-                <h2>To-Do List</h2>
-                <div class="icons">
-                    <i class="fa-solid fa-plus fa-xs"></i>
-                    <i class="fa-solid fa-minus fa-xs"></i>
-                    <a href="#">Learn More</a>
-                </div>
-            </nav>
-        </main>
+        <nav class="navbar">
+          <h2>To-Do List</h2>
+          <div class="icons">
+            <i class="fa-solid fa-plus fa-xs"></i>
+            <i class="fa-solid fa-minus fa-xs"></i>
+            <a href="#">Learn More</a>
+          </div>
+        </nav>
+        <section class="toDoContent">
+          <div class="topSection">
+            <h1>Title of clicked to do item</h1>
+            <button class="edit">Edit</button>
+          </div>
+          <div class="middleSection">
+            <p>Notes that will appear when creating to do item</p>
+            <button class="edit">Edit</button>
+          </div>
+          <div class="finalSection">
+            <p>Notification timer</p>
+            <button class="edit">Edit</button>
+          </div>
+        </section>
+      </main>
     </div>
     <script src="../dist/main.js"></script>
-</body>
+  </body>
 </html>
