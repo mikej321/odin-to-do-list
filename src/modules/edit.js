@@ -10,33 +10,67 @@ const editTimer = document.querySelector('.editTimer');
 
 function titleEdit() {
     title.toggleAttribute('contenteditable', true);
+    title.textContent = title.innerText;
     const text = document.getSelection();
-    console.log(title.textContent.length);
     // fix the focus offset
     text.setBaseAndExtent(title.firstChild, 0, title.lastChild, title.textContent.length);
     completeTitleEdit();
-    title.addEventListener('click', titleEdit);
 }
 
 function completeTitleEdit() {
     editTitle.removeEventListener('click', titleEdit);
     editTitle.textContent = 'Add';
-    editTitle.addEventListener('click', () => {
-        title.toggleAttribute('contenteditable', false);
-        editTitle.textContent = 'Edit';
-    })
+    editTitle.addEventListener('click', grabTextTitle);
+}
+
+
+function grabTextTitle() {
+    title.textContent = title.innerText;
+    title.toggleAttribute('contenteditable', false);
+    editTitle.textContent = 'Edit';
+    editTitle.addEventListener('click', titleEdit);
 }
 
 function contentEdit() {
-    creationContent.setAttribute('contenteditable', true);
+    creationContent.toggleAttribute('contenteditable', true);
+    creationContent.textContent = creationContent.innerText;
     const text = document.getSelection();
-    text.setBaseAndExtent(creationContent.firstChild, 0, creationContent.lastChild, 47);
+    text.setBaseAndExtent(creationContent.firstChild, 0, creationContent.lastChild, creationContent.textContent.length);
+    completeContentEdit();
+}
+
+function completeContentEdit() {
+    editContent.removeEventListener('click', contentEdit);
+    editContent.textContent = 'Add';
+    editContent.addEventListener('click', grabTextContent);
+}
+
+function grabTextContent() {
+    creationContent.textContent = creationContent.innerText;
+    creationContent.toggleAttribute('contenteditable', false);
+    editContent.textContent = 'Edit';
+    editContent.addEventListener('click', contentEdit);
 }
 
 function timerEdit() {
-    timerContent.setAttribute('contenteditable', true);
+    timerContent.toggleAttribute('contenteditable', true);
+    timerContent.textContent = timerContent.innerText;
     const text = document.getSelection();
-    text.setBaseAndExtent(timerContent.firstChild, 0, timerContent.lastChild, 18);
+    text.setBaseAndExtent(timerContent.firstChild, 0, timerContent.lastChild, timerContent.textContent.length);
+    completeTimerEdit();
+}
+
+function completeTimerEdit() {
+    editTimer.removeEventListener('click', timerEdit);
+    editTimer.textContent = 'Add';
+    editTimer.addEventListener('click', grabTextTimer);
+}
+
+function grabTextTimer() {
+    timerContent.textContent = timerContent.innerText;
+    timerContent.toggleAttribute('contenteditable', false);
+    editTimer.textContent = 'Edit';
+    editTimer.addEventListener('click', timerEdit);
 }
 
 export { titleEdit, contentEdit, timerEdit, editTitle, editContent, editTimer }

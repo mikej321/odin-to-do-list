@@ -31,7 +31,7 @@ the following:
 import './style.css';
 import { icons, addBeat, removeBeat } from './modules/beat';
 import { menuEvent } from './modules/menu';
-import { plusButton, slideOutPage, complete, slideInPage } from './modules/set';
+import { plusButton, arrow, slideOutPage, complete, slideInPage } from './modules/set';
 import { titleEdit, editTitle, contentEdit, editContent, timerEdit, editTimer } from './modules/edit';
 
 // logic for pulsing the icons in the navbar
@@ -41,6 +41,7 @@ menuEvent();
 
 plusButton.addEventListener('click', slideInPage);
 complete.addEventListener('click', slideOutPage);
+arrow.addEventListener('click', slideOutPage);
 editTitle.addEventListener('click', titleEdit);
 editContent.addEventListener('click', contentEdit);
 editTimer.addEventListener('click', timerEdit);

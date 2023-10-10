@@ -3,6 +3,7 @@ const editContent = document.querySelector('.editContent');
 const editTimer = document.querySelector('.editTimer');
 const plusButton = document.querySelector('.icons > i:first-child');
 const complete = document.querySelector('.complete');
+const arrow = document.querySelector('.arrow');
 
 let transformation = -1000;
 
@@ -30,4 +31,4 @@ function slideOutPage() {
     })
 }
 
-export { plusButton, complete, slideInPage, slideOutPage };
+export { plusButton, complete, arrow, slideInPage, slideOutPage };

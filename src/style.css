@@ -178,6 +178,28 @@ ul li {
     transform: translate(0, -1000px);
 }
 
+.arrow {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    right: 0;
+    top: 50px;
+    margin: 0 auto;
+    border-top: 25px solid red;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    cursor: pointer;
+    transition: border-top 0.1s ease-in-out,
+                rotate 0.4s ease-in-out;
+}
+
+.arrow:hover {
+    border-top: 25px solid green;
+    rotate: 180deg;
+}
+
 
 .topSection,
 .middleSection,
@@ -185,6 +207,10 @@ ul li {
     display: flex;
     gap: 2rem;
     align-items: center;
+}
+
+.topSection {
+    margin-top: 5rem;
 }
 
 
