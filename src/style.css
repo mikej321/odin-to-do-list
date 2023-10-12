@@ -146,7 +146,7 @@ a {
 }
 
 .projectOpen {
-    max-height: 10rem;
+    max-height: fit-content;
     visibility: visible;
     
 }
@@ -175,7 +175,7 @@ ul li {
     gap: 10rem;
     padding: 4rem 2rem;
     background: skyblue;
-    transform: translate(0, -1000px);
+    transform: translate(0, -1100px);
 }
 
 .arrow {

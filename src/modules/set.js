@@ -5,7 +5,7 @@ const plusButton = document.querySelector('.icons > i:first-child');
 const complete = document.querySelector('.complete');
 const arrow = document.querySelector('.arrow');
 
-let transformation = -1000;
+let transformation = -1100;
 
 function slideInPage() {
     const toDoContentBox = document.querySelector('.toDoContent');

@@ -37,7 +37,7 @@ import { titleEdit, editTitle, contentEdit, editContent, timerEdit, editTimer } 
 // logic for pulsing the icons in the navbar
 addBeat();
 removeBeat();
-menuEvent();
+
 
 plusButton.addEventListener('click', slideInPage);
 complete.addEventListener('click', slideOutPage);

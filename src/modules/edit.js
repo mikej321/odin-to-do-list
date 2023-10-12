@@ -7,6 +7,67 @@ const creationContent = document.querySelector('.middleSection > p');
 const editContent = document.querySelector('.editContent');
 const timerContent = document.querySelector('.finalSection > p');
 const editTimer = document.querySelector('.editTimer');
+const sidebar = document.querySelector('.sidebar');
+
+import { complete } from './set';
+import { menu, main, projects, line1, line2, line3 } from './menu';
+
+let toDoArr = [];
+
+
+class Projects {
+    constructor(title, content, timer) {
+        this.title = title,
+        this.content = content;
+        this.timer = timer;
+    }
+
+    writeToPage() {
+        for (let i = 0; i < toDoArr.length; i++) {
+            
+
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('project');
+            newDiv.classList.add(`project${i + 1}`);
+
+            const pageTitle = document.createElement('h3');
+            pageTitle.textContent = toDoArr[i].title;
+            newDiv.append(pageTitle);
+
+            const pageContent = document.createElement('ul');
+            const pageContentTab1 = document.createElement('li');
+            pageContent.append(pageContentTab1);
+            pageContentTab1.textContent = toDoArr[i].content;
+
+            const pageContentTab2 = document.createElement('li');
+            pageContentTab2.textContent = toDoArr[i].timer;
+            pageContent.append(pageContentTab2);
+
+            newDiv.append(pageContent);
+
+            sidebar.append(newDiv);
+
+            const elements = document.querySelectorAll('.project');
+            
+            function menuEvent() {
+                menu.addEventListener('click', () => {
+                    main.classList.toggle('navOpen');
+                    elements.forEach((element) => {
+                        console.log(element);
+                        element.classList.toggle('projectOpen');
+                    })
+                    line1.classList.toggle('upperAnimate');
+                    line2.classList.toggle('middleAnimate');
+                    line3.classList.toggle('lowerAnimate');
+                })
+            }
+
+            menuEvent();
+        }
+
+        
+    }
+}
 
 function titleEdit() {
     title.toggleAttribute('contenteditable', true);
@@ -72,5 +133,12 @@ function grabTextTimer() {
     editTimer.textContent = 'Edit';
     editTimer.addEventListener('click', timerEdit);
 }
+
+complete.addEventListener('click', () => {
+    const newProject = new Projects(title.textContent, creationContent.textContent, timerContent.textContent);
+    toDoArr.push(newProject);
+    newProject.writeToPage();
+    
+})
 
 export { titleEdit, contentEdit, timerEdit, editTitle, editContent, editTimer }
