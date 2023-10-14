@@ -30,7 +30,6 @@ the following:
 
 import './style.css';
 import { icons, addBeat, removeBeat } from './modules/beat';
-import { menuEvent } from './modules/menu';
 import { plusButton, arrow, slideOutPage, complete, slideInPage } from './modules/set';
 import { titleEdit, editTitle, contentEdit, editContent, timerEdit, editTimer } from './modules/edit';
 

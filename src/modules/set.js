@@ -22,13 +22,13 @@ function slideInPage() {
 function slideOutPage() {
     const toDoContentBox = document.querySelector('.toDoContent');
     let intervalID = setInterval(() => {
-        if (transformation > -1000) {
+        if (transformation > -1100) {
             transformation = transformation - 10;
             toDoContentBox.style.transform = `translate(0, ${transformation}px)`;
         } else {
             clearInterval(intervalID);
         }
-    })
+    }, 0.5)
 }
 
 export { plusButton, complete, arrow, slideInPage, slideOutPage };

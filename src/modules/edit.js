@@ -7,10 +7,18 @@ const creationContent = document.querySelector('.middleSection > p');
 const editContent = document.querySelector('.editContent');
 const timerContent = document.querySelector('.finalSection > p');
 const editTimer = document.querySelector('.editTimer');
-const sidebar = document.querySelector('.sidebar');
+const main = document.querySelector('main');
+const projects = document.querySelectorAll('.project');
+const panes = document.querySelector('.toDoPanes');
+let elements;
 
 import { complete } from './set';
-import { menu, main, projects, line1, line2, line3 } from './menu';
+
+// change the learn more tab to EDIT
+
+/* allow the edit to pull down a list that, when one is selected,
+pulls back down the edit page to change the info */
+
 
 let toDoArr = [];
 
@@ -23,50 +31,55 @@ class Projects {
     }
 
     writeToPage() {
-        for (let i = 0; i < toDoArr.length; i++) {
-            
-
-            const newDiv = document.createElement('div');
+        // find a way to add items to the sidebar without having to close it
+        const newDiv = document.createElement('div');
+        
+        for (let i = toDoArr.length - 1; i < toDoArr.length; i++) {     
             newDiv.classList.add('project');
             newDiv.classList.add(`project${i + 1}`);
 
-            const pageTitle = document.createElement('h3');
-            pageTitle.textContent = toDoArr[i].title;
-            newDiv.append(pageTitle);
-
-            const pageContent = document.createElement('ul');
-            const pageContentTab1 = document.createElement('li');
-            pageContent.append(pageContentTab1);
-            pageContentTab1.textContent = toDoArr[i].content;
-
-            const pageContentTab2 = document.createElement('li');
-            pageContentTab2.textContent = toDoArr[i].timer;
-            pageContent.append(pageContentTab2);
-
-            newDiv.append(pageContent);
-
-            sidebar.append(newDiv);
-
-            const elements = document.querySelectorAll('.project');
+            const projectInfo = document.createElement('div');
+            projectInfo.classList.add('projectInfo');
             
-            function menuEvent() {
-                menu.addEventListener('click', () => {
-                    main.classList.toggle('navOpen');
-                    elements.forEach((element) => {
-                        console.log(element);
-                        element.classList.toggle('projectOpen');
-                    })
-                    line1.classList.toggle('upperAnimate');
-                    line2.classList.toggle('middleAnimate');
-                    line3.classList.toggle('lowerAnimate');
-                })
-            }
+            const projectTitle = document.createElement('h3');
+            projectTitle.textContent = toDoArr[i].title;
+            projectInfo.append(projectTitle);
+            
+            const projectContent = document.createElement('p');
+            projectContent.textContent = toDoArr[i].content;
+            projectInfo.append(projectContent);
+            
+            const timeContainer = document.createElement('div');
+            timeContainer.classList.add('timeContainer');
+            
+            const projectTimer = document.createElement('p');
+            projectTimer.textContent = toDoArr[i].timer;
+            timeContainer.append(projectTimer);
+            
+            newDiv.append(projectInfo);
+            newDiv.append(timeContainer);
+            panes.append(newDiv);
 
-            menuEvent();
+            elements = document.querySelectorAll('.project');   
         }
 
-        
+        setTimeout(() => {
+            let opacity = 0;
+            let transformation = -25;
+            let intervalID = setInterval(() => {
+                if (opacity < 1 && transformation < 0) {
+                    opacity = opacity + .20;
+                    transformation = transformation + 5;
+                    newDiv.style.opacity = opacity;
+                    newDiv.style.transform = `translate(0, ${transformation}px)`;
+                } else {
+                    clearInterval(intervalID);
+                }
+            }, 15)
+        }, 300)
     }
+    
+    
 }
 
 function titleEdit() {
@@ -134,11 +147,20 @@ function grabTextTimer() {
     editTimer.addEventListener('click', timerEdit);
 }
 
+function resetForm() {
+    title.textContent = 'Title of clicked to do item';
+    creationContent.textContent = 'Notes that will appear when creating to do item';
+    timerContent.textContent = 'Notification timer';
+}
+
 complete.addEventListener('click', () => {
     const newProject = new Projects(title.textContent, creationContent.textContent, timerContent.textContent);
     toDoArr.push(newProject);
     newProject.writeToPage();
-    
+    resetForm();
 })
 
+ 
+
 export { titleEdit, contentEdit, timerEdit, editTitle, editContent, editTimer }
+
