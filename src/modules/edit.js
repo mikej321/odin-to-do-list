@@ -37,6 +37,7 @@ class Projects {
         for (let i = toDoArr.length - 1; i < toDoArr.length; i++) {     
             newDiv.classList.add('project');
             newDiv.classList.add(`project${i + 1}`);
+            newDiv.id = i;
 
             const projectInfo = document.createElement('div');
             projectInfo.classList.add('projectInfo');
@@ -153,14 +154,17 @@ function resetForm() {
     timerContent.textContent = 'Notification timer';
 }
 
-complete.addEventListener('click', () => {
+function createProject() {
     const newProject = new Projects(title.textContent, creationContent.textContent, timerContent.textContent);
     toDoArr.push(newProject);
     newProject.writeToPage();
     resetForm();
-})
+
+}
+
+complete.addEventListener('click', createProject);
 
  
 
-export { titleEdit, contentEdit, timerEdit, editTitle, editContent, editTimer }
+export { titleEdit, contentEdit, timerEdit, createProject, editTitle, editContent, editTimer, projects, toDoArr, title, creationContent, timerContent, panes, elements }
 

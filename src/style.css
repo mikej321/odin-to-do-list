@@ -78,6 +78,7 @@ a {
     gap: 10rem;
     padding: 4rem 2rem;
     background: skyblue;
+    width: 100%;
     transform: translate(0, -1100px);
     z-index: 1;
 }
@@ -192,10 +193,11 @@ a {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    pointer-events: none;
 }
 
 .timeContainer {
-
+    pointer-events: none;
 }
 
 .project h3 {
