@@ -23,6 +23,7 @@ body {
 .content {
     display: flex;
     justify-content: center;
+    
 }
 
 main {
@@ -30,6 +31,7 @@ main {
     display: grid;
     width: 100%;
     max-width: 375px;
+    border-radius: 8px;
     grid-template-rows: 4rem 1fr;
     grid-template-areas: "nav"
                          "content"
@@ -54,7 +56,7 @@ main {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 21rem;
+    max-width: 15rem;
     justify-content: space-around;
 }
 
@@ -177,19 +179,23 @@ a {
     gap: 2rem;
     margin: 2rem;
     padding: 2rem;
-    border: 1px solid black;
+    width: 100%;
+    max-width: 34rem;
+    border-radius: 6px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
     transform: translate(0, -25px);
     opacity: 0;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.25s linear;
 }
 
 .project:hover {
     background-color: lightseagreen;
+    color: white;
 }
 
 .projectInfo {
+    flex-basis: 50%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -197,12 +203,69 @@ a {
 }
 
 .timeContainer {
+    flex-basis: 20%;
     pointer-events: none;
 }
 
-.project h3 {
-    font-size: 1.5rem;
+.projectInfo h3 {
+    font-size: 1.6rem;
 }
+
+.projectInfo p {
+    font-size: 1.2rem;
+}
+
+.timeContainer p {
+
+    font-size: 1.2rem;
+}
+
+.buttonContainer {
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.deletePane {
+    width: 7rem;
+    height: 3rem;
+    transition: all 0.2s ease-in-out;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.deletePane:hover {
+    background-color: red;
+    color: white;
+    scale: 1.1;
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+}
+
+
+
+.expand {
+    cursor: pointer;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 6px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.expand:hover {
+    background-color: greenyellow;
+    scale: 1.1;
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+}
+
+
+
+
 
 @media screen and (min-width: 600px) {
     
@@ -225,14 +288,13 @@ a {
         gap: 2rem;
         
     }
-    
-    .project1 {
-    
+
+    .projectInfo {
+        align-items: center;
+        text-align: center;
     }
     
-    .project2 {
-    
-    }
+
 
     /* change projects transition to focus on main page instead of sidebar */
     
@@ -249,7 +311,7 @@ a {
         display: flex;
         align-items: center;
         width: 100%;
-        max-width: 40rem;
+        max-width: 25rem;
         justify-content: space-around;
     }
     

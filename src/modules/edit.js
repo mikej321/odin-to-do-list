@@ -13,6 +13,7 @@ const panes = document.querySelector('.toDoPanes');
 let elements;
 
 import { complete } from './set';
+import { truncateText } from './truncate';
 
 // change the learn more tab to EDIT
 
@@ -44,10 +45,12 @@ class Projects {
             
             const projectTitle = document.createElement('h3');
             projectTitle.textContent = toDoArr[i].title;
+            truncateText(projectTitle, projectTitle.textContent, 16);
             projectInfo.append(projectTitle);
             
             const projectContent = document.createElement('p');
             projectContent.textContent = toDoArr[i].content;
+            truncateText(projectContent, projectContent.textContent, 16);
             projectInfo.append(projectContent);
             
             const timeContainer = document.createElement('div');
@@ -56,12 +59,45 @@ class Projects {
             const projectTimer = document.createElement('p');
             projectTimer.textContent = toDoArr[i].timer;
             timeContainer.append(projectTimer);
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('buttonContainer');
+
+            const deletePane = document.createElement('button');
+            deletePane.classList.add('deletePane');
+            buttonContainer.append(deletePane);
+
+            const minusButton = document.createElement('i');
+            minusButton.classList.add('fa-solid');
+            minusButton.classList.add('fa-minus');
+            minusButton.classList.add('fa-md');
+            deletePane.append(minusButton);
+
+            const expand = document.createElement('button');
+            expand.classList.add('expand');
+            expand.textContent = 'Expand';
+            buttonContainer.append(expand);
             
             newDiv.append(projectInfo);
             newDiv.append(timeContainer);
+            newDiv.append(buttonContainer);
             panes.append(newDiv);
 
             elements = document.querySelectorAll('.project');   
+            expand.addEventListener('click', () => {
+              if (!newDiv.classList.contains('expanded')) {
+                  projectTitle.textContent = toDoArr[i].title;
+                  projectContent.textContent = toDoArr[i].content;
+                  newDiv.classList.add('expanded');
+                  expand.textContent = 'Contract';
+              } else {
+                truncateText(projectTitle, projectTitle.textContent, 16);
+                truncateText(projectContent, projectContent.textContent, 16);
+                newDiv.classList.remove('expanded');
+                expand.textContent = 'Expand';
+              }
+            }
+            );
         }
 
         setTimeout(() => {
@@ -83,12 +119,47 @@ class Projects {
     
 }
 
+function removeFocusTitle() {
+    title.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            
+            event.preventDefault();
+            title.removeAttribute('contenteditable');
+            title.blur();
+            grabTextTitle();
+        }
+    })
+
+}
+
+function removeFocusContent() {
+    creationContent.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            creationContent.removeAttribute('contenteditable');
+            creationContent.blur();
+            grabTextContent();
+        }
+    })
+}
+
+function removeFocusTimer() {
+    timerContent.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            timerContent.removeAttribute('contenteditable');
+            timerContent.blur();
+            grabTextTimer();
+        }
+    })
+}
+
 function titleEdit() {
     title.toggleAttribute('contenteditable', true);
     title.textContent = title.innerText;
     const text = document.getSelection();
-    // fix the focus offset
-    text.setBaseAndExtent(title.firstChild, 0, title.lastChild, title.textContent.length);
+    text.setBaseAndExtent(title.firstChild, title.textContent.length, title.lastChild, title.textContent.length);
+    removeFocusTitle();
     completeTitleEdit();
 }
 
@@ -110,7 +181,8 @@ function contentEdit() {
     creationContent.toggleAttribute('contenteditable', true);
     creationContent.textContent = creationContent.innerText;
     const text = document.getSelection();
-    text.setBaseAndExtent(creationContent.firstChild, 0, creationContent.lastChild, creationContent.textContent.length);
+    text.setBaseAndExtent(creationContent.firstChild, creationContent.textContent.length, creationContent.lastChild, creationContent.textContent.length);
+    removeFocusContent(creationContent);
     completeContentEdit();
 }
 
@@ -132,6 +204,7 @@ function timerEdit() {
     timerContent.textContent = timerContent.innerText;
     const text = document.getSelection();
     text.setBaseAndExtent(timerContent.firstChild, 0, timerContent.lastChild, timerContent.textContent.length);
+    removeFocusTimer();
     completeTimerEdit();
 }
 
