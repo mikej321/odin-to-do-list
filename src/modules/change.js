@@ -2,10 +2,6 @@ import { complete, slideInPage, slideOutPage } from './set';
 import { projects, toDoArr, title, creationContent, timerContent, panes, elements, createProject } from './edit';
 import { truncateText } from './truncate';
 
-// add a button that untruncates text
-
-// add a button that changes if it is a simple todo or a list
-
 function editPane() {
     document.addEventListener('click', (event) => {
         let tarElement = event.target;
@@ -20,7 +16,7 @@ function editPane() {
                 toDoArr[tarElement.id].content = creationContent.textContent;
                 toDoArr[tarElement.id].timer = timerContent.textContent;
                 slideOutPage();
-                rewriteToPage();
+                rewriteToPage(toDoArr);
                 reverseEditPage();
                 complete.addEventListener('click', createProject);
                 complete.removeEventListener('click', changePane);
@@ -39,7 +35,7 @@ function reverseEditPage() {
     timerContent.textContent = 'Notification Timer';
 }
 
-function rewriteToPage() {
+function rewriteToPage(arr) {
     while (panes.firstChild) {
         panes.removeChild(panes.firstChild);
     }
@@ -55,12 +51,12 @@ function rewriteToPage() {
         projectInfo.classList.add('projectInfo');
         
         const projectTitle = document.createElement('h3');
-        projectTitle.textContent = toDoArr[i].title;
+        projectTitle.textContent = arr[i].title;
         truncateText(projectTitle, projectTitle.textContent, 16);
         projectInfo.append(projectTitle);
         
         const projectContent = document.createElement('p');
-        projectContent.textContent = toDoArr[i].content;
+        projectContent.textContent = arr[i].content;
         truncateText(projectContent, projectContent.textContent, 16);
         projectInfo.append(projectContent);
         
@@ -68,7 +64,7 @@ function rewriteToPage() {
         timeContainer.classList.add('timeContainer');
         
         const projectTimer = document.createElement('p');
-        projectTimer.textContent = toDoArr[i].timer;
+        projectTimer.textContent = arr[i].timer;
         timeContainer.append(projectTimer);
 
         const buttonContainer = document.createElement('div');
@@ -97,8 +93,8 @@ function rewriteToPage() {
         newElements = document.querySelectorAll('.project');  
         expand.addEventListener('click', () => {
             if (!newDiv.classList.contains('expanded')) {
-                projectTitle.textContent = toDoArr[i].title;
-                projectContent.textContent = toDoArr[i].content;
+                projectTitle.textContent = arr[i].title;
+                projectContent.textContent = arr[i].content;
                 newDiv.classList.add('expanded');
                 expand.textContent = 'Contract';
             } else {
@@ -129,4 +125,4 @@ function rewriteToPage() {
     
     
     
-    export { editPane };
+    export { editPane, rewriteToPage };

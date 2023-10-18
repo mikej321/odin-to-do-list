@@ -200,6 +200,7 @@ function grabTextContent() {
 }
 
 function timerEdit() {
+    // important for the date function
     timerContent.toggleAttribute('contenteditable', true);
     timerContent.textContent = timerContent.innerText;
     const text = document.getSelection();
@@ -215,6 +216,7 @@ function completeTimerEdit() {
 }
 
 function grabTextTimer() {
+    // important for the date function
     timerContent.textContent = timerContent.innerText;
     timerContent.toggleAttribute('contenteditable', false);
     editTimer.textContent = 'Edit';
