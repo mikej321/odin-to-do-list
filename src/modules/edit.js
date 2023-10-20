@@ -65,17 +65,14 @@ class Projects {
 
             function countdownTimer() {
                 const targetDate = toDoArr[i].timer.getTime();
-                setInterval(() => {
+                let intervalID = setInterval(() => {
                     const today = new Date().getTime();
                     let leftoverTime = (targetDate - today) / 1000;
                     
-                    if (leftoverTime <= 0 && !notify.hasAttribute('played')) {
+                    if (leftoverTime <= 0) {
                         timerP.textContent = 'Time\'s up';
                         playNotification();
-                    } else if (leftoverTime <= 0 && notify.hasAttribute('played')) {
-                        notify.pause();
-                        notify.currentTime = 0;
-                        return;
+                        clearInterval(intervalID);
                     } else {
                         const days = Math.floor(leftoverTime / 60 / 60 / 24);
                         const hours = Math.floor(leftoverTime / 60 / 60 % 24);
@@ -153,7 +150,6 @@ let notify = new Audio(notification);
 
 function playNotification() {
     notify.play();
-    notify.setAttribute('played', true);
 }
 
 function removeFocusTitle() {
@@ -166,7 +162,6 @@ function removeFocusTitle() {
             grabTextTitle();
         }
     })
-
 }
 
 function removeFocusContent() {
