@@ -1,6 +1,5 @@
 const editTitle = document.querySelector('.editTimer');
 const editContent = document.querySelector('.editContent');
-const editTimer = document.querySelector('.editTimer');
 const plusButton = document.querySelector('.icons > i:first-child');
 const complete = document.querySelector('.complete');
 const arrow = document.querySelector('.arrow');

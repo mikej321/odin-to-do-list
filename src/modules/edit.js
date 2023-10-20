@@ -5,7 +5,7 @@ const title = document.querySelector('.topSection > h1');
 const editTitle = document.querySelector('.editTitle');
 const creationContent = document.querySelector('.middleSection > p');
 const editContent = document.querySelector('.editContent');
-const timerContent = document.querySelector('.finalSection > p');
+const timerValue = document.querySelector('#setTimer');
 const editTimer = document.querySelector('.editTimer');
 const main = document.querySelector('main');
 const projects = document.querySelectorAll('.project');
@@ -56,23 +56,47 @@ class Projects {
             const timeContainer = document.createElement('div');
             timeContainer.classList.add('timeContainer');
             
-            const projectTimer = document.createElement('p');
-            projectTimer.textContent = toDoArr[i].timer;
-            timeContainer.append(projectTimer);
+            // timer stuff
 
+            const timerP = document.createElement('p');
+            timerP.classList.add('timerP');
+            timeContainer.append(timerP);
+
+            function countdownTimer() {
+                const targetDate = toDoArr[i].timer.getTime();
+                setInterval(() => {
+                    const today = new Date().getTime();
+                    let leftoverTime = Math.abs(targetDate - today) / 1000;
+                    
+                    if (leftoverTime <= 0) {
+                        timerP.textContent = 'Time\'s up';
+                    } else {
+                        const days = Math.floor(leftoverTime / 60 / 60 / 24);
+                        const hours = Math.floor(leftoverTime / 60 / 60 % 24);
+                        const minutes = Math.floor(leftoverTime / 60 % 60);
+                        const seconds = Math.floor(leftoverTime % 60);
+                        
+                        timerP.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                    }
+                }, 1000)
+                
+            }
+            
+            countdownTimer();
+            
             const buttonContainer = document.createElement('div');
             buttonContainer.classList.add('buttonContainer');
-
+            
             const deletePane = document.createElement('button');
             deletePane.classList.add('deletePane');
             buttonContainer.append(deletePane);
-
+            
             const minusButton = document.createElement('i');
             minusButton.classList.add('fa-solid');
             minusButton.classList.add('fa-minus');
             minusButton.classList.add('fa-md');
             deletePane.append(minusButton);
-
+            
             const expand = document.createElement('button');
             expand.classList.add('expand');
             expand.textContent = 'Expand';
@@ -82,24 +106,24 @@ class Projects {
             newDiv.append(timeContainer);
             newDiv.append(buttonContainer);
             panes.append(newDiv);
-
+            
             elements = document.querySelectorAll('.project');   
             expand.addEventListener('click', () => {
-              if (!newDiv.classList.contains('expanded')) {
-                  projectTitle.textContent = toDoArr[i].title;
-                  projectContent.textContent = toDoArr[i].content;
-                  newDiv.classList.add('expanded');
-                  expand.textContent = 'Contract';
-              } else {
-                truncateText(projectTitle, projectTitle.textContent, 16);
-                truncateText(projectContent, projectContent.textContent, 16);
-                newDiv.classList.remove('expanded');
-                expand.textContent = 'Expand';
-              }
+                if (!newDiv.classList.contains('expanded')) {
+                    projectTitle.textContent = toDoArr[i].title;
+                    projectContent.textContent = toDoArr[i].content;
+                    newDiv.classList.add('expanded');
+                    expand.textContent = 'Contract';
+                } else {
+                    truncateText(projectTitle, projectTitle.textContent, 16);
+                    truncateText(projectContent, projectContent.textContent, 16);
+                    newDiv.classList.remove('expanded');
+                    expand.textContent = 'Expand';
+                }
             }
             );
         }
-
+        
         setTimeout(() => {
             let opacity = 0;
             let transformation = -25;
@@ -143,22 +167,13 @@ function removeFocusContent() {
     })
 }
 
-function removeFocusTimer() {
-    timerContent.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            timerContent.removeAttribute('contenteditable');
-            timerContent.blur();
-            grabTextTimer();
-        }
-    })
-}
+
 
 function titleEdit() {
     title.toggleAttribute('contenteditable', true);
     title.textContent = title.innerText;
     const text = document.getSelection();
-    text.setBaseAndExtent(title.firstChild, title.textContent.length, title.lastChild, title.textContent.length);
+    text.setBaseAndExtent(title.firstChild, 0, title.lastChild, title.textContent.length);
     removeFocusTitle();
     completeTitleEdit();
 }
@@ -181,7 +196,7 @@ function contentEdit() {
     creationContent.toggleAttribute('contenteditable', true);
     creationContent.textContent = creationContent.innerText;
     const text = document.getSelection();
-    text.setBaseAndExtent(creationContent.firstChild, creationContent.textContent.length, creationContent.lastChild, creationContent.textContent.length);
+    text.setBaseAndExtent(creationContent.firstChild, 0, creationContent.lastChild, creationContent.textContent.length);
     removeFocusContent(creationContent);
     completeContentEdit();
 }
@@ -199,38 +214,22 @@ function grabTextContent() {
     editContent.addEventListener('click', contentEdit);
 }
 
-function timerEdit() {
-    // important for the date function
-    timerContent.toggleAttribute('contenteditable', true);
-    timerContent.textContent = timerContent.innerText;
-    const text = document.getSelection();
-    text.setBaseAndExtent(timerContent.firstChild, 0, timerContent.lastChild, timerContent.textContent.length);
-    removeFocusTimer();
-    completeTimerEdit();
-}
+// timer edit function
 
-function completeTimerEdit() {
-    editTimer.removeEventListener('click', timerEdit);
-    editTimer.textContent = 'Add';
-    editTimer.addEventListener('click', grabTextTimer);
-}
 
-function grabTextTimer() {
-    // important for the date function
-    timerContent.textContent = timerContent.innerText;
-    timerContent.toggleAttribute('contenteditable', false);
-    editTimer.textContent = 'Edit';
-    editTimer.addEventListener('click', timerEdit);
-}
+
+
 
 function resetForm() {
     title.textContent = 'Title of clicked to do item';
     creationContent.textContent = 'Notes that will appear when creating to do item';
-    timerContent.textContent = 'Notification timer';
+    timerValue.value = '';
 }
 
+// start here with creating a timer date object in this createProject function
 function createProject() {
-    const newProject = new Projects(title.textContent, creationContent.textContent, timerContent.textContent);
+    const timerDate = new Date(timerValue.value);
+    const newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
     toDoArr.push(newProject);
     newProject.writeToPage();
     resetForm();
@@ -241,5 +240,5 @@ complete.addEventListener('click', createProject);
 
  
 
-export { titleEdit, contentEdit, timerEdit, createProject, editTitle, editContent, editTimer, projects, toDoArr, title, creationContent, timerContent, panes, elements }
+export { titleEdit, contentEdit, createProject, editTitle, editContent, projects, toDoArr, title, creationContent, panes, elements, timerValue, editTimer }
 

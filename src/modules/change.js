@@ -1,5 +1,5 @@
 import { complete, slideInPage, slideOutPage } from './set';
-import { projects, toDoArr, title, creationContent, timerContent, panes, elements, createProject } from './edit';
+import { projects, toDoArr, title, creationContent, panes, elements, createProject, timerValue, editTimer} from './edit';
 import { truncateText } from './truncate';
 
 function editPane() {
@@ -8,13 +8,12 @@ function editPane() {
         if (tarElement.classList.contains('project')) {
             title.textContent = toDoArr[tarElement.id].title;
             creationContent.textContent = toDoArr[tarElement.id].content;
-            timerContent.textContent = toDoArr[tarElement.id].timer;
             slideInPage();
             complete.removeEventListener('click', createProject);
             complete.addEventListener('click', function changePane() {
                 toDoArr[tarElement.id].title = title.textContent;
                 toDoArr[tarElement.id].content = creationContent.textContent;
-                toDoArr[tarElement.id].timer = timerContent.textContent;
+                toDoArr[tarElement.id].timer = new Date(timerValue.value);
                 slideOutPage();
                 rewriteToPage(toDoArr);
                 reverseEditPage();
@@ -32,7 +31,7 @@ let newElements;
 function reverseEditPage() {
     title.textContent = 'Title of clicked to do item';
     creationContent.textContent = 'Notes that will appear when creating to do item';
-    timerContent.textContent = 'Notification Timer';
+    
 }
 
 function rewriteToPage(arr) {
@@ -63,9 +62,30 @@ function rewriteToPage(arr) {
         const timeContainer = document.createElement('div');
         timeContainer.classList.add('timeContainer');
         
-        const projectTimer = document.createElement('p');
-        projectTimer.textContent = arr[i].timer;
-        timeContainer.append(projectTimer);
+        const timerP = document.createElement('p');
+        timerP.classList.add('timerP');
+        timeContainer.append(timerP);
+
+        function newCountdown() {
+            const targetDate = toDoArr[i].timer.getTime();
+            setInterval(() => {
+                const today = new Date().getTime();
+                let leftoverTime = Math.abs(targetDate - today) / 1000;
+
+                if (leftoverTime <= 0) {
+                    timerP.textContent = 'Time\'s up';
+                } else {
+                    const days = Math.floor(leftoverTime / 60 / 60 / 24);
+                    const hours = Math.floor(leftoverTime / 60 / 60 % 24);
+                    const minutes = Math.floor(leftoverTime / 60 % 60);
+                    const seconds = Math.floor(leftoverTime % 60);
+
+                    timerP.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }
+            }, 1000)
+        }
+
+        newCountdown();
 
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add('buttonContainer');
