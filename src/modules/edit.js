@@ -12,6 +12,7 @@ const projects = document.querySelectorAll('.project');
 const panes = document.querySelector('.toDoPanes');
 let elements;
 
+import notification from '../notification.mp3';
 import { complete } from './set';
 import { truncateText } from './truncate';
 
@@ -66,10 +67,15 @@ class Projects {
                 const targetDate = toDoArr[i].timer.getTime();
                 setInterval(() => {
                     const today = new Date().getTime();
-                    let leftoverTime = Math.abs(targetDate - today) / 1000;
+                    let leftoverTime = (targetDate - today) / 1000;
                     
-                    if (leftoverTime <= 0) {
+                    if (leftoverTime <= 0 && !notify.hasAttribute('played')) {
                         timerP.textContent = 'Time\'s up';
+                        playNotification();
+                    } else if (leftoverTime <= 0 && notify.hasAttribute('played')) {
+                        notify.pause();
+                        notify.currentTime = 0;
+                        return;
                     } else {
                         const days = Math.floor(leftoverTime / 60 / 60 / 24);
                         const hours = Math.floor(leftoverTime / 60 / 60 % 24);
@@ -141,6 +147,13 @@ class Projects {
     }
     
     
+}
+
+let notify = new Audio(notification);
+
+function playNotification() {
+    notify.play();
+    notify.setAttribute('played', true);
 }
 
 function removeFocusTitle() {
