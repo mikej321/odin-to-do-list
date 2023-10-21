@@ -1,6 +1,7 @@
 import { complete, slideInPage, slideOutPage } from './set';
-import { projects, toDoArr, title, creationContent, panes, elements, createProject, timerValue, editTimer} from './edit';
+import { projects, toDoArr, title, creationContent, panes, elements, createProject, timerValue, notify, playNotification } from './edit';
 import { truncateText } from './truncate';
+
 
 function editPane() {
     document.addEventListener('click', (event) => {
@@ -8,6 +9,7 @@ function editPane() {
         if (tarElement.classList.contains('project')) {
             title.textContent = toDoArr[tarElement.id].title;
             creationContent.textContent = toDoArr[tarElement.id].content;
+            timerValue.value = new Date(toDoArr[tarElement.id].timer.getTime() - toDoArr[tarElement.id].timer.getTimezoneOffset() * 60000).toISOString().slice(0, -1);
             slideInPage();
             complete.removeEventListener('click', createProject);
             complete.addEventListener('click', function changePane() {
@@ -28,7 +30,7 @@ function editPane() {
 
 let newElements;
 
-function reverseEditPage() {
+function reverseEditPage(date) {
     title.textContent = 'Title of clicked to do item';
     creationContent.textContent = 'Notes that will appear when creating to do item';
     
@@ -68,12 +70,14 @@ function rewriteToPage(arr) {
 
         function newCountdown() {
             const targetDate = toDoArr[i].timer.getTime();
-            setInterval(() => {
+            let intervalID = setInterval(() => {
                 const today = new Date().getTime();
                 let leftoverTime = Math.abs(targetDate - today) / 1000;
 
                 if (leftoverTime <= 0) {
                     timerP.textContent = 'Time\'s up';
+                    playNotification();
+                    clearInterval(intervalID);
                 } else {
                     const days = Math.floor(leftoverTime / 60 / 60 / 24);
                     const hours = Math.floor(leftoverTime / 60 / 60 % 24);

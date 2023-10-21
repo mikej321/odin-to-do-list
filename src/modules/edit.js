@@ -6,7 +6,6 @@ const editTitle = document.querySelector('.editTitle');
 const creationContent = document.querySelector('.middleSection > p');
 const editContent = document.querySelector('.editContent');
 const timerValue = document.querySelector('#setTimer');
-const editTimer = document.querySelector('.editTimer');
 const main = document.querySelector('main');
 const projects = document.querySelectorAll('.project');
 const panes = document.querySelector('.toDoPanes');
@@ -248,5 +247,5 @@ complete.addEventListener('click', createProject);
 
  
 
-export { titleEdit, contentEdit, createProject, editTitle, editContent, projects, toDoArr, title, creationContent, panes, elements, timerValue, editTimer }
+export { titleEdit, contentEdit, createProject, editTitle, editContent, projects, toDoArr, title, creationContent, panes, elements, timerValue, notify, playNotification }
 
