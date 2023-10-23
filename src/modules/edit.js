@@ -370,7 +370,19 @@ function createProject() {
     resetForm();
 }
 
-complete.addEventListener('click', createProject);
+complete.addEventListener('click', (event) => {
+    try {
+        event.preventDefault();
+        if (timerValue.value === '') {
+            throw new Error('Please enter a date');
+            return;
+        } else {
+            createProject();
+        }
+    } catch(error) {
+        console.log(error);
+    }
+});
 
  
 

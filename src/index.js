@@ -14,7 +14,9 @@ import { toDoArr, titleEdit, editTitle, contentEdit, editContent, projects, retr
 import { editPane } from './modules/change';
 import { deleteToDo } from './modules/delete';
 
-window.onload = retrieveProjects();
+if (JSON.parse(localStorage.getItem('projects')).length > 0) {
+    window.onload = retrieveProjects();
+}
 
 // logic for pulsing the icons in the navbar
 addBeat();
