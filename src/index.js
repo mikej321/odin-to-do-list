@@ -10,9 +10,11 @@ data that I need for it. Use CTRL + F to find all of the logic that deals with '
 import './style.css';
 import { icons, addBeat, removeBeat } from './modules/beat';
 import { plusButton, arrow, slideOutPage, complete, slideInPage } from './modules/set';
-import { toDoArr, titleEdit, editTitle, contentEdit, editContent, projects } from './modules/edit';
+import { toDoArr, titleEdit, editTitle, contentEdit, editContent, projects, retrieveProjects } from './modules/edit';
 import { editPane } from './modules/change';
 import { deleteToDo } from './modules/delete';
+
+window.onload = retrieveProjects();
 
 // logic for pulsing the icons in the navbar
 addBeat();
@@ -26,5 +28,7 @@ editTitle.addEventListener('click', titleEdit);
 editContent.addEventListener('click', contentEdit);
 editPane();
 deleteToDo(toDoArr);
+
+
 
 

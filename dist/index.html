@@ -13,48 +13,49 @@
   <body>
     <div class="content">
       <main>
-        <aside class="sidebar">
-          <div class="hamburgerMenu">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-          </div>
-          <div class="project project1">
-            <h3>Project 1</h3>
-            <ul>
-              <li>Dishes</li>
-              <li>Feed</li>
-            </ul>
-          </div>
-          <div class="project project2">
-            <h3>Project 2</h3>
-            <ul>
-              <li>Exercise</li>
-              <li>Work</li>
-            </ul>
-          </div>
-        </aside>
         <nav class="navbar">
           <h2>To-Do List</h2>
           <div class="icons">
             <i class="fa-solid fa-plus fa-xs"></i>
-            <i class="fa-solid fa-minus fa-xs"></i>
             <a href="#">Learn More</a>
           </div>
         </nav>
         <section class="toDoContent">
+          <div class="arrow"></div>
           <div class="topSection">
             <h1>Title of clicked to do item</h1>
-            <button class="edit">Edit</button>
+            <button class="edit editTitle">Edit</button>
           </div>
           <div class="middleSection">
             <p>Notes that will appear when creating to do item</p>
-            <button class="edit">Edit</button>
+            <button class="edit editContent">Edit</button>
           </div>
           <div class="finalSection">
-            <p>Notification timer</p>
-            <button class="edit">Edit</button>
+            <div class="inputContainer">
+              <label for="setTimer">Notification Timer</label>
+              <div class="datetime-wrapper">
+                <input type="datetime-local" name="setTimer" id="setTimer">
+              </div>
+            </div>
           </div>
+          <button class="complete">Complete</button>
+        </section>
+        <section class="toDoPanes">
+          <!-- <div class="project project1">
+            <div class="projectInfo">
+              <h1>project1</h1>
+              <p>make sure to feed Morgan</p>
+            </div>
+            <div class="timeContainer">
+              <p>7:00 PM</p>
+            </div>
+            <div class="buttonContainer">
+              <button class="deletePane">
+                <i class="fa-solid fa-minus fa-md"></i>
+              </button>
+              <button class="expand">Expand</button>
+            </div>
+          </div> -->
         </section>
       </main>
     </div>
