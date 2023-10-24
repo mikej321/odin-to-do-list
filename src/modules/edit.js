@@ -27,10 +27,12 @@ let toDoArr = [];
 window.onload = setToDoArr();
 
 function setToDoArr() {
-    if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects'))) {
+    if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects')) !== null) {
         let mainArr = JSON.parse(localStorage.getItem('projects'));
         toDoArr = mainArr;
         console.log(toDoArr)
+    } else if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects')) === null) {
+        return;
     }
 }
 
