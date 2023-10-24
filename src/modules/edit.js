@@ -24,6 +24,16 @@ pulls back down the edit page to change the info */
 
 let toDoArr = [];
 
+window.onload = setToDoArr();
+
+function setToDoArr() {
+    if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects'))) {
+        let mainArr = JSON.parse(localStorage.getItem('projects'));
+        toDoArr = mainArr;
+        console.log(toDoArr)
+    }
+}
+
 
 class Projects {
     constructor(title, content, timer) {
@@ -64,10 +74,11 @@ class Projects {
             timeContainer.append(timerP);
 
             function countdownTimer() {
-                const targetDate = toDoArr[i].timer.getTime();
+                const targetDate = new Date(toDoArr[i].timer);
+                let targetTime = targetDate.getTime();
                 let intervalID = setInterval(() => {
                     const today = new Date().getTime();
-                    let leftoverTime = (targetDate - today) / 1000;
+                    let leftoverTime = (targetTime - today) / 1000;
                     
                     if (leftoverTime <= 0) {
                         timerP.textContent = 'Time\'s up';
@@ -361,13 +372,25 @@ function resetForm() {
 
 // start here with creating a timer date object in this createProject function
 function createProject() {
-    const timerDate = new Date(timerValue.value);
-    newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
-    toDoArr.push(newProject);
-    addToStorage(toDoArr);
-    console.log(toDoArr);
-    newProject.writeToPage();
-    resetForm();
+    if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects'))) {
+        let mainArr = JSON.parse(localStorage.getItem('projects'));
+        toDoArr = mainArr;
+        const timerDate = new Date(timerValue.value);
+        newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
+        toDoArr.push(newProject);
+        addToStorage(toDoArr);
+        console.log(toDoArr);
+        newProject.writeToPage();
+        resetForm();
+    } else {
+        const timerDate = new Date(timerValue.value);
+        newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
+        toDoArr.push(newProject);
+        addToStorage(toDoArr);
+        console.log(toDoArr);
+        newProject.writeToPage();
+        resetForm();
+    }
 }
 
 complete.addEventListener('click', (event) => {

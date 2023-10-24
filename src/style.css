@@ -1,5 +1,40 @@
 /* Default Styling */
 
+@font-face {
+    font-family: 'Alegreya Regular';
+    src: url('./AlegreyaSCRegular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Alegreya Medium';
+    src: url('./AlegreyaSCMedium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Alegreya Bold';
+    src: url('./AlegreyaSCBold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand Normal';
+    src: url('./Quicksand.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand Bold';
+    src: url('./Quicksand.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
 *,
 *::before,
 *::after {
@@ -18,6 +53,7 @@ html {
 
 body {
     font-size: 1.6rem;
+    font-family: 'Quicksand Normal';
 }
 
 .content {
@@ -49,6 +85,8 @@ main {
 }
 
 .navbar h2 {
+    font-family: 'Alegreya Bold';
+    letter-spacing: 2px;
     font-size: 1.8rem;
 }
 
@@ -66,6 +104,7 @@ i {
 
 a {
     font-size: 1.2rem;
+    font-family: 'Alegreya Normal';
     text-decoration: none;
     color: black;
 }
@@ -247,6 +286,8 @@ a {
 }
 
 .projectInfo h3 {
+    font-family: 'Quicksand';
+    font-weight: 600;
     font-size: 1.6rem;
 }
 

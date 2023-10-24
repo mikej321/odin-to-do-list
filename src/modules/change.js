@@ -69,10 +69,11 @@ function rewriteToPage(arr) {
         timeContainer.append(timerP);
 
         function newCountdown() {
-            const targetDate = toDoArr[i].timer.getTime();
+            const targetDate = new Date(toDoArr[i].timer);
+            let targetTime = targetDate.getTime();
             let intervalID = setInterval(() => {
                 const today = new Date().getTime();
-                let leftoverTime = Math.abs(targetDate - today) / 1000;
+                let leftoverTime = Math.abs(targetTime - today) / 1000;
 
                 if (leftoverTime <= 0) {
                     timerP.textContent = 'Time\'s up';
