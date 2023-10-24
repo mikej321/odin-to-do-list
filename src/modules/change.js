@@ -152,4 +152,4 @@ function rewriteToPage(arr) {
     
     
     
-    export { editPane, rewriteToPage };
+    export { panes, editPane, rewriteToPage };
