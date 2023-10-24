@@ -266,7 +266,7 @@ a {
     grid-area: panes;
     display: grid;
     justify-content: center;
-    background: linear-gradient(75deg, var(--Anti-flash-white),
+    background: linear-gradient(175deg, var(--Anti-flash-white),
                                 var(--Wheat));
 }
 
