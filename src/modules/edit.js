@@ -16,12 +16,6 @@ import notification from '../notification.mp3';
 import { complete } from './set';
 import { truncateText } from './truncate';
 
-// change the learn more tab to EDIT
-
-/* allow the edit to pull down a list that, when one is selected,
-pulls back down the edit page to change the info */
-
-
 let toDoArr = [];
 
 window.onload = setToDoArr();
