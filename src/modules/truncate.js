@@ -1,4 +1,3 @@
-
 function truncateText(ele, str, num) {
     if (str.length <= num) {
         return;

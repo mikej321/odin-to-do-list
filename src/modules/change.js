@@ -9,7 +9,9 @@ function editPane() {
         if (tarElement.classList.contains('project')) {
             title.textContent = toDoArr[tarElement.id].title;
             creationContent.textContent = toDoArr[tarElement.id].content;
-            timerValue.value = new Date(toDoArr[tarElement.id].timer.getTime() - toDoArr[tarElement.id].timer.getTimezoneOffset() * 60000).toISOString().slice(0, -1);
+            let oldVal = new Date(toDoArr[tarElement.id].timer).getTime();
+            let oldTimezoneVal = new Date(toDoArr[tarElement.id].timer).getTimezoneOffset();
+            timerValue.value = new Date(oldVal - oldTimezoneVal * 60000).toISOString().slice(0, -1);
             slideInPage();
             complete.removeEventListener('click', createProject);
             complete.addEventListener('click', function changePane() {

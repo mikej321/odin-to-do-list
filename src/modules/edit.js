@@ -24,7 +24,6 @@ function setToDoArr() {
     if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects')) !== null) {
         let mainArr = JSON.parse(localStorage.getItem('projects'));
         toDoArr = mainArr;
-        console.log(toDoArr)
     } else if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects')) === null) {
         return;
     }
@@ -229,8 +228,6 @@ function grabTextContent() {
     editContent.addEventListener('click', contentEdit);
 }
 
-// timer edit function
-
 function addToStorage(arr) {
     localStorage.setItem('projects', JSON.stringify(arr));
 }
@@ -238,7 +235,6 @@ function addToStorage(arr) {
 function retrieveProjects() {
     if (localStorage.getItem('projects') !== null) {
         const userArr = JSON.parse(localStorage.getItem('projects'));
-        console.table(userArr[0], userArr[1]);
         writeRetrievalData(userArr)
     } else {
         return;
@@ -366,7 +362,6 @@ function resetForm() {
     timerValue.value = '';
 }
 
-// start here with creating a timer date object in this createProject function
 function createProject() {
     if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects'))) {
         let mainArr = JSON.parse(localStorage.getItem('projects'));
@@ -375,7 +370,6 @@ function createProject() {
         newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
         toDoArr.push(newProject);
         addToStorage(toDoArr);
-        console.log(toDoArr);
         newProject.writeToPage();
         resetForm();
     } else {
@@ -383,7 +377,6 @@ function createProject() {
         newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
         toDoArr.push(newProject);
         addToStorage(toDoArr);
-        console.log(toDoArr);
         newProject.writeToPage();
         resetForm();
     }
@@ -399,7 +392,7 @@ complete.addEventListener('click', (event) => {
             createProject();
         }
     } catch(error) {
-        console.log(error);
+        alert(error);
     }
 });
 

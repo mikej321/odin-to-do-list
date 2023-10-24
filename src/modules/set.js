@@ -6,9 +6,6 @@ const arrow = document.querySelector('.arrow');
 
 let transformation = -1100;
 
-/* Change slideIn and slideOut page to be a form that fades in instead of an entire
-page that slides down and up */
-
 function slideInPage() {
     const toDoContentBox = document.querySelector('.toDoContent');
     let intervalID = setInterval(() => {
