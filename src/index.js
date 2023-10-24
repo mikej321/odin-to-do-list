@@ -14,7 +14,7 @@ import { toDoArr, titleEdit, editTitle, contentEdit, editContent, projects, retr
 import { editPane } from './modules/change';
 import { deleteToDo } from './modules/delete';
 
-if (JSON.parse(localStorage.getItem('projects')).length > 0) {
+if (JSON.parse(localStorage.getItem('projects')) !== null && JSON.parse(localStorage.getItem('projects')).length > 0) {
     window.onload = retrieveProjects();
 }
 
