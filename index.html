@@ -20,15 +20,18 @@
             <a href="#">Learn More</a>
           </div>
         </nav>
-        <section class="toDoContent">
-          <div class="arrow"></div>
+        <form class="toDoContent">
           <div class="topSection">
-            <h1>Title of clicked to do item</h1>
-            <button class="edit editTitle">Edit</button>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" placeholder="Title of to do item" minlength="4" maxlength="30">
+            <!-- <h1>Title of clicked to do item</h1>
+            <button class="edit editTitle">Edit</button> -->
           </div>
           <div class="middleSection">
-            <p>Notes that will appear when creating to do item</p>
-            <button class="edit editContent">Edit</button>
+            <label for="notes">Notes</label>
+            <input type="text" name="notes" id="notes" placeholder="Anything extra?" minlength="2" maxlength="140">
+            <!-- <p>Notes that will appear when creating to do item</p>
+            <button class="edit editContent">Edit</button> -->
           </div>
           <div class="finalSection">
             <div class="inputContainer">
@@ -39,7 +42,7 @@
             </div>
           </div>
           <button class="complete">Complete</button>
-        </section>
+        </form>
         <section class="toDoPanes">
           <!-- <div class="project project1">
             <div class="projectInfo">
