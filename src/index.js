@@ -1,9 +1,10 @@
 import './style.css';
 import { icons, addBeat, removeBeat } from './modules/beat';
-import { plusButton, arrow, slideOutPage, complete, slideInPage } from './modules/set';
-import { toDoArr, titleEdit, editTitle, contentEdit, editContent, projects, retrieveProjects } from './modules/edit';
-import { editPane } from './modules/change';
+import { plusButton, fadeOutPage, complete, fadeInPage } from './modules/set';
+import { toDoArr, projects, retrieveProjects } from './modules/edit';
+
 import { deleteToDo } from './modules/delete';
+
 
 if (JSON.parse(localStorage.getItem('projects')) !== null && JSON.parse(localStorage.getItem('projects')).length > 0) {
     window.onload = retrieveProjects();
@@ -13,13 +14,8 @@ if (JSON.parse(localStorage.getItem('projects')) !== null && JSON.parse(localSto
 addBeat();
 removeBeat();
 
-
-plusButton.addEventListener('click', slideInPage);
-complete.addEventListener('click', slideOutPage);
-arrow.addEventListener('click', slideOutPage);
-editTitle.addEventListener('click', titleEdit);
-editContent.addEventListener('click', contentEdit);
-editPane();
+plusButton.addEventListener('click', fadeInPage);
+complete.addEventListener('click', fadeOutPage);
 deleteToDo();
 
 

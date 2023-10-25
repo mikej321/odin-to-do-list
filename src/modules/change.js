@@ -2,48 +2,12 @@ import { complete, slideInPage, slideOutPage } from './set';
 import { projects, toDoArr, title, creationContent, panes, elements, createProject, timerValue, notify, playNotification } from './edit';
 import { truncateText } from './truncate';
 
-
-function editPane() {
-    document.addEventListener('click', (event) => {
-        let tarElement = event.target;
-        if (tarElement.classList.contains('project')) {
-            title.textContent = toDoArr[tarElement.id].title;
-            creationContent.textContent = toDoArr[tarElement.id].content;
-            let oldVal = new Date(toDoArr[tarElement.id].timer).getTime();
-            let oldTimezoneVal = new Date(toDoArr[tarElement.id].timer).getTimezoneOffset();
-            timerValue.value = new Date(oldVal - oldTimezoneVal * 60000).toISOString().slice(0, -1);
-            slideInPage();
-            complete.removeEventListener('click', createProject);
-            complete.addEventListener('click', function changePane() {
-                toDoArr[tarElement.id].title = title.textContent;
-                toDoArr[tarElement.id].content = creationContent.textContent;
-                toDoArr[tarElement.id].timer = new Date(timerValue.value);
-                slideOutPage();
-                rewriteToPage(toDoArr);
-                reverseEditPage();
-                complete.addEventListener('click', createProject);
-                complete.removeEventListener('click', changePane);
-            })
-        }
-    })
-}
-
-
-
 let newElements;
-
-function reverseEditPage(date) {
-    title.textContent = 'Title of clicked to do item';
-    creationContent.textContent = 'Notes that will appear when creating to do item';
-    
-}
 
 function rewriteToPage(arr) {
     while (panes.firstChild) {
         panes.removeChild(panes.firstChild);
     }
-    
-    console.log(toDoArr.length)
     
     for (let i = 0; i < arr.length; i++) {     
         const newDiv = document.createElement('div');
@@ -53,16 +17,20 @@ function rewriteToPage(arr) {
         
         const projectInfo = document.createElement('div');
         projectInfo.classList.add('projectInfo');
+
+        if (arr[i].title !== '') {
+            const projectTitle = document.createElement('h3');
+            projectTitle.textContent = arr[i].title;
+            truncateText(projectTitle, projectTitle.textContent, 16);
+            projectInfo.append(projectTitle);
+        }
         
-        const projectTitle = document.createElement('h3');
-        projectTitle.textContent = arr[i].title;
-        truncateText(projectTitle, projectTitle.textContent, 16);
-        projectInfo.append(projectTitle);
-        
-        const projectContent = document.createElement('p');
-        projectContent.textContent = arr[i].content;
-        truncateText(projectContent, projectContent.textContent, 16);
-        projectInfo.append(projectContent);
+        if (arr[i].content !== '') {
+            const projectContent = document.createElement('p');
+            projectContent.textContent = arr[i].content;
+            truncateText(projectContent, projectContent.textContent, 16);
+            projectInfo.append(projectContent);
+        }
         
         const timeContainer = document.createElement('div');
         timeContainer.classList.add('timeContainer');
@@ -153,4 +121,4 @@ function rewriteToPage(arr) {
     
     
     
-    export { panes, editPane, rewriteToPage };
+    export { panes, rewriteToPage };

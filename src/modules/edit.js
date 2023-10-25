@@ -1,10 +1,8 @@
 const topSection = document.querySelector('.topSection');
 const middleSection = document.querySelector('.middleSection');
 const finalSection = document.querySelector('.finalSection');
-const title = document.querySelector('.topSection > h1');
-const editTitle = document.querySelector('.editTitle');
-const creationContent = document.querySelector('.middleSection > p');
-const editContent = document.querySelector('.editContent');
+const title = document.querySelector('#title');
+const creationContent = document.querySelector('#notes');
 const timerValue = document.querySelector('#setTimer');
 const main = document.querySelector('main');
 const projects = document.querySelectorAll('.project');
@@ -48,16 +46,21 @@ class Projects {
 
             const projectInfo = document.createElement('div');
             projectInfo.classList.add('projectInfo');
+
+            if (toDoArr[i].title !== '') {
+                const projectTitle = document.createElement('h3');
+                projectTitle.textContent = toDoArr[i].title;
+                truncateText(projectTitle, projectTitle.textContent, 16);
+                projectInfo.append(projectTitle);
+            }
             
-            const projectTitle = document.createElement('h3');
-            projectTitle.textContent = toDoArr[i].title;
-            truncateText(projectTitle, projectTitle.textContent, 16);
-            projectInfo.append(projectTitle);
-            
-            const projectContent = document.createElement('p');
-            projectContent.textContent = toDoArr[i].content;
-            truncateText(projectContent, projectContent.textContent, 16);
-            projectInfo.append(projectContent);
+            if (toDoArr[i].content !== '') {
+                console.log('I do not equal empty')
+                const projectContent = document.createElement('p');
+                projectContent.textContent = toDoArr[i].content;
+                truncateText(projectContent, projectContent.textContent, 16);
+                projectInfo.append(projectContent);
+            }
             
             const timeContainer = document.createElement('div');
             timeContainer.classList.add('timeContainer');
@@ -156,76 +159,6 @@ let notify = new Audio(notification);
 
 function playNotification() {
     notify.play();
-}
-
-function removeFocusTitle() {
-    title.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            
-            event.preventDefault();
-            title.removeAttribute('contenteditable');
-            title.blur();
-            grabTextTitle();
-        }
-    })
-}
-
-function removeFocusContent() {
-    creationContent.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            creationContent.removeAttribute('contenteditable');
-            creationContent.blur();
-            grabTextContent();
-        }
-    })
-}
-
-
-
-function titleEdit() {
-    title.toggleAttribute('contenteditable', true);
-    title.textContent = title.innerText;
-    const text = document.getSelection();
-    text.setBaseAndExtent(title.firstChild, 0, title.lastChild, title.textContent.length);
-    removeFocusTitle();
-    completeTitleEdit();
-}
-
-function completeTitleEdit() {
-    editTitle.removeEventListener('click', titleEdit);
-    editTitle.textContent = 'Add';
-    editTitle.addEventListener('click', grabTextTitle);
-}
-
-
-function grabTextTitle() {
-    title.textContent = title.innerText;
-    title.toggleAttribute('contenteditable', false);
-    editTitle.textContent = 'Edit';
-    editTitle.addEventListener('click', titleEdit);
-}
-
-function contentEdit() {
-    creationContent.toggleAttribute('contenteditable', true);
-    creationContent.textContent = creationContent.innerText;
-    const text = document.getSelection();
-    text.setBaseAndExtent(creationContent.firstChild, 0, creationContent.lastChild, creationContent.textContent.length);
-    removeFocusContent(creationContent);
-    completeContentEdit();
-}
-
-function completeContentEdit() {
-    editContent.removeEventListener('click', contentEdit);
-    editContent.textContent = 'Add';
-    editContent.addEventListener('click', grabTextContent);
-}
-
-function grabTextContent() {
-    creationContent.textContent = creationContent.innerText;
-    creationContent.toggleAttribute('contenteditable', false);
-    editContent.textContent = 'Edit';
-    editContent.addEventListener('click', contentEdit);
 }
 
 function addToStorage(arr) {
@@ -357,24 +290,25 @@ function writeRetrievalData(arr) {
 
 
 function resetForm() {
-    title.textContent = 'Title of clicked to do item';
-    creationContent.textContent = 'Notes that will appear when creating to do item';
+    title.value = '';
+    creationContent.value = '';
     timerValue.value = '';
 }
+
 
 function createProject() {
     if (toDoArr.length === 0 && JSON.parse(localStorage.getItem('projects'))) {
         let mainArr = JSON.parse(localStorage.getItem('projects'));
         toDoArr = mainArr;
         const timerDate = new Date(timerValue.value);
-        newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
+        newProject = new Projects(title.value, creationContent.value, timerDate);
         toDoArr.push(newProject);
         addToStorage(toDoArr);
         newProject.writeToPage();
         resetForm();
     } else {
         const timerDate = new Date(timerValue.value);
-        newProject = new Projects(title.textContent, creationContent.textContent, timerDate);
+        newProject = new Projects(title.value, creationContent.value, timerDate);
         toDoArr.push(newProject);
         addToStorage(toDoArr);
         newProject.writeToPage();
@@ -382,21 +316,24 @@ function createProject() {
     }
 }
 
-complete.addEventListener('click', (event) => {
-    try {
-        event.preventDefault();
-        if (timerValue.value === '') {
-            throw new Error('Please enter a date');
-            return;
-        } else {
-            createProject();
+document.addEventListener('click', (event) => {
+    let eventTar = event.target;
+    if (eventTar.tagName === 'BUTTON' && eventTar.classList.contains('complete')) {
+        try {
+            console.log('I was clicked')
+            if (timerValue.value === '') {
+                throw new Error('Please enter a date');
+                return;
+            } else {
+                createProject();
+            }
+        } catch(error) {
+            alert(error);
         }
-    } catch(error) {
-        alert(error);
     }
-});
+})
 
  
 
-export { titleEdit, contentEdit, createProject, editTitle, editContent, projects, toDoArr, title, creationContent, panes, elements, timerValue, notify, playNotification, retrieveProjects }
+export { createProject, projects, toDoArr, title, creationContent, panes, elements, timerValue, notify, playNotification, retrieveProjects }
 
