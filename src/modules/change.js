@@ -43,8 +43,9 @@ function rewriteToPage(arr) {
         panes.removeChild(panes.firstChild);
     }
     
+    console.log(toDoArr.length)
     
-    for (let i = 0; i < toDoArr.length; i++) {     
+    for (let i = 0; i < arr.length; i++) {     
         const newDiv = document.createElement('div');
         newDiv.classList.add('project');
         newDiv.classList.add(`project${i + 1}`);

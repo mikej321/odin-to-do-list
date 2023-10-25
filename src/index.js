@@ -20,7 +20,7 @@ arrow.addEventListener('click', slideOutPage);
 editTitle.addEventListener('click', titleEdit);
 editContent.addEventListener('click', contentEdit);
 editPane();
-deleteToDo(toDoArr);
+deleteToDo();
 
 
 
