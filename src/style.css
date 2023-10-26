@@ -259,7 +259,7 @@ label {
     flex-direction: row;
     align-items: center;
     gap: 2rem;
-    margin: 2rem;
+    margin-block: 2rem;
     padding: 2rem;
     width: 100%;
     max-width: 34rem;
@@ -423,6 +423,7 @@ label {
     .toDoPanes {
         grid-template-columns: repeat(4, minmax(150px, 335px));
         gap: 2rem;
+        padding-inline: 2rem;
         justify-items: center;
     }
 

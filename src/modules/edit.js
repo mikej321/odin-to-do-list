@@ -157,7 +157,13 @@ class Projects {
 
 let notify = new Audio(notification);
 
+function setNotification() {
+    notify.volume = 0.0;
+    notify.play();
+}
+
 function playNotification() {
+    notify.volume = 1;
     notify.play();
 }
 
@@ -320,11 +326,11 @@ document.addEventListener('click', (event) => {
     let eventTar = event.target;
     if (eventTar.tagName === 'BUTTON' && eventTar.classList.contains('complete')) {
         try {
-            console.log('I was clicked')
             if (timerValue.value === '') {
                 throw new Error('Please enter a date');
                 return;
             } else {
+                setNotification();
                 createProject();
             }
         } catch(error) {

@@ -48,7 +48,7 @@ function rewriteToPage(arr) {
 
                 if (leftoverTime <= 0) {
                     timerP.textContent = 'Time\'s up';
-                    playNotification();
+                    // playNotification();
                     clearInterval(intervalID);
                 } else {
                     const days = Math.floor(leftoverTime / 60 / 60 / 24);
